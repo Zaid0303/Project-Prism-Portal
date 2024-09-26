@@ -70,9 +70,9 @@ include("config.php");
                                             <td><?php echo $row['project_semester'] ?></td>
                                             <td><?php echo $row['c_name'] ?></td>
                                                 <td><?php  
-                                                    if ($row['Sta'] == "1") {
+                                                    if ($row['Statuss'] == "1") {
                                                         echo "Accepted";
-                                                    } elseif ($row['Sta'] == "2") {
+                                                    } elseif ($row['Statuss'] == "2") {
                                                         echo "Rejected";
                                                     }
                                                 ?></td>

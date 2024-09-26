@@ -12,6 +12,7 @@ if(isset($_POST['SignIn'])){
 
     $verify_email = "SELECT * FROM `users` where `u_email` = '$login_email'";
     $verify_result = mysqli_query($connection, $verify_email);
+    
     if($verify_result){
         if(mysqli_num_rows($verify_result) == 1){
             $row = mysqli_fetch_assoc($verify_result);

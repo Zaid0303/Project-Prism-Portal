@@ -149,26 +149,27 @@ include('config.php');
                                 <div class="d-flex text-muted">
                                     <div class="flex-shrink-0  me-3 align-self-center">
                                         <div class="avatar-sm">
-                                            <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
-                                                <i class="ri-group-line"></i>
-                                            </div>
+                                        <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
+    <i class="ri-heart-fill"></i>
+</div>
+
                                         </div>
                                     </div>
                                     <?php
                                     // Query to get the user count
-                                    $query = "SELECT COUNT(*) AS user_count FROM `users`";
+                                    $query = "SELECT COUNT(*) AS like_count FROM `like` where user_id = '$user_id'";
                                     $result = mysqli_query($connection, $query);
 
                                     if ($result) {
                                         $row = mysqli_fetch_assoc($result);
-                                        $user_count = $row['user_count'];
+                                        $like_count = $row['like_count'];
                                     } else {
-                                        $user_count = 0; // Default to 0 if query fails
+                                        $like_count = 0; // Default to 0 if query fails
                                     }
                                     ?>
                                     <div class="flex-grow-1 overflow-hidden">
-                                        <p class="mb-1">All Users</p>
-                                        <h5 class="mb-3"><?php echo number_format($user_count); ?></h5>
+                                        <p class="mb-1">All Likes</p>
+                                        <h5 class="mb-3"><?php echo number_format($like_count); ?></h5>
                                         <p class="text-truncate mb-0"><span class="text-success me-2"> 0.01% <i
                                                     class="ri-arrow-right-up-line align-bottom ms-1"></i></span> From
                                             previous</p>
@@ -181,7 +182,7 @@ include('config.php');
                     </div>
                     <!-- end col -->
                 </div>
-                
+
                 <!-- end row -->
 
                 <div class="row">
@@ -284,17 +285,19 @@ include('config.php');
                             <div class="card-body">
                                 <h4 class="card-title">All Comments</h4>
                                 <div class="pe-3" data-simplebar style="max-height: 287px;">
-                                    <a href="#" class="text-body d-block">
+                                    <a href="comments.php" class="text-body d-block">
                                         <?php
                                         include("config.php");
 
-                                        // Query to get comments and user details
+                                        $logged_in_user_id = $_SESSION['user_id'];
+
                                         $query = "SELECT c.comment_id, c.comment_message, c.datetime, u.u_id, u.u_name, u.u_img 
                                         FROM comment c 
                                         INNER JOIN users u ON c.user_id = u.u_id 
+                                        INNER JOIN project p ON c.projid = p.project_id 
                                         WHERE c.status = 1 
+                                        AND p.user_id = $logged_in_user_id 
                                         ORDER BY c.datetime DESC";
-                              
 
                                         $result = mysqli_query($connection, $query);
 
@@ -364,7 +367,7 @@ include('config.php');
                     <!-- end col -->
                 </div>
                 <!-- end row -->
-                
+
 
             </div>
             <!-- container-fluid -->

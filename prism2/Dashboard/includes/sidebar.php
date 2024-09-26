@@ -37,6 +37,20 @@
                 </li>
 
                 <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="fa-solid fa-list"></i>
+                        <span>All Approval Request</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="view-project.php">View Projects</a></li>
+                        <li><a href="Rejected_project.php">All Rejected Project</a></li>
+                        <li><a href="selected_project.php">All Selected Project</a></li>
+                        <li><a href="user_edit_project.php">All edit Project</a></li>
+                        <li><a href="project-restore.php">All restore Project</a></li>
+                    </ul>
+                </li>
+
+                <li>
                     <a href="users.php" class="waves-effect">
                         <i class="mdi mdi-account-circle-outline"></i>
                         <span>Users</span>

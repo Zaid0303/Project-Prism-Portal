@@ -64,16 +64,16 @@ if(isset($_POST['submit']))
                                                 <td><?php echo $row['project_semester']; ?></td>
                                                 <td><?php echo $row['c_name']; ?></td>
                                                 <td><?php  
-                                                    if ($row['Status'] == "1") {
+                                                    if ($row['Statuss'] == "1") {
                                                         echo "Accepted";
-                                                    } elseif ($row['Status'] == "2") {
+                                                    } elseif ($row['Statuss'] == "2") {
                                                         echo "Rejected";
                                                     }
                                                 ?></td>
                                                 <td>
                                                     <select name="Sta" class="form-control wd-450" required="true">
-                                                        <option value="1" <?php if ($row['Status'] == "1") echo "selected"; ?>>Selected</option>
-                                                        <option value="2" <?php if ($row['Status'] == "2") echo "selected"; ?>>Rejected</option>
+                                                        <option value="1" <?php if ($row['Statuss'] == "1") echo "selected"; ?>>Selected</option>
+                                                        <option value="2" <?php if ($row['Statuss'] == "2") echo "selected"; ?>>Rejected</option>
                                                     </select>
                                                 </td>
                                                

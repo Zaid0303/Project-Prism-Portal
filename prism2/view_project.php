@@ -172,7 +172,8 @@ include("config.php");
                                 <div class="row align-items-center mb-3">
                                     <div class="col-auto">
                                         <img src="<?php echo './User-Dashboard/assets/images/user_img/' . $row['u_img']; ?>"
-                                            height="50px" width="50px" alt="User Avatar" class="rounded-circle me-2" style="width: 38px; height: 38px; border-radius: 50%;">
+                                            height="50px" width="50px" alt="User Avatar" class="rounded-circle me-2"
+                                            style="width: 38px; height: 38px; border-radius: 50%;">
                                     </div>
                                     <div class="col">
                                         <strong class="d-block"><?php echo htmlspecialchars($row['u_name']); ?></strong>
@@ -388,8 +389,15 @@ include("config.php");
                                             <!-- Comment Input -->
                                             <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                             <div class="comment-input d-flex align-items-start">
-                                                <img src="<?php echo './User-Dashboard/assets/images/user_img/' . $_SESSION['user_image'] ?>"
-                                                    alt="User Avatar" class="rounded-circle me-3" height="40px" width="40px">
+                                                <?php
+                                                if (isset($_SESSION['user_image']) && !empty($_SESSION['user_image'])) {
+                                                    $userImage = './User-Dashboard/assets/images/user_img/' . $_SESSION['user_image'];
+                                                } else {
+                                                    // Set a default avatar if user image is not available
+                                                    $userImage = './User-Dashboard/assets/images/user_img/default-avatar.png';
+                                                }
+                                                ?>
+                                                <img src="<?php echo $userImage; ?>" alt="User Avatar" class="rounded-circle me-3" height="40px" width="40px">
                                                 <div class="w-100">
                                                     <textarea class="form-control" rows="3" name="comment-message" id="comment-message"
                                                         placeholder="Add a comment..." required></textarea>
@@ -459,11 +467,11 @@ include("config.php");
                                     // Existing JavaScript code for editing and deleting comments
                                     $('.edit-comment').click(function () {
                                         var commentId = $(this).data('id');
-                                        var commentTextElement = $('.comment-text[data-id="'+commentId+'"]');
+                                        var commentTextElement = $('.comment-text[data-id="' + commentId + '"]');
                                         var originalComment = commentTextElement.text();
 
                                         // Replace the comment text with a textarea for editing
-                                        commentTextElement.html('<textarea class="form-control edit-textarea" data-id="'+commentId +'">'+originalComment+'</textarea>');
+                                        commentTextElement.html('<textarea class="form-control edit-textarea" data-id="' + commentId + '">' + originalComment + '</textarea>');
 
                                         // Replace the Edit button with a Save button
                                         $(this).replaceWith('<button class="btn btn-outline-primary save-comment me-2" data-id="' + commentId + '" title="Save"><i class="fa-solid fa-save"></i></button>');

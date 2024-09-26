@@ -34,8 +34,15 @@ include("config.php");
             <div class="col-lg-12">
               <div class="avatar mb-4">
                 <label for="upload-image" class="cursor-pointer">
-                  <img id="profile-image" src="<?php echo './User-Dashboard/assets/images/user_img/' . $row['u_img'] ?>"
-                    alt="avatar" class="rounded-circle img-fluid shadow-sm" style="width: 150px;">
+                  <?php
+                  if (isset($_SESSION['user_image']) && !empty($_SESSION['user_image'])) {
+                    $userImage = './User-Dashboard/assets/images/user_img/' . $_SESSION['user_image'];
+                  } else {
+                    // Set a default avatar if user image is not available
+                    $userImage = './User-Dashboard/assets/images/user_img/default-avatar.png';
+                  }
+                  ?>
+                  <img id="profile-image" src="<?php echo $userImage; ?>" alt="avatar" class="rounded-circle img-fluid shadow-sm" style="width: 150px;">
                 </label>
                 <h4 class="mt-3"><?php echo $row['u_name']; ?></h4>
               </div>

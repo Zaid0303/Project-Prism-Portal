@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2024 at 12:22 AM
+-- Generation Time: Sep 25, 2024 at 11:30 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -65,14 +65,26 @@ INSERT INTO `comment` (`comment_id`, `comment_message`, `datetime`, `status`, `u
 (90, 'aaa', '2024-08-24 00:25:58', 1, 14, 19),
 (106, 'aaaaaaaaa', '2024-08-24 00:47:36', 1, 14, 19),
 (109, 'Nice', '2024-08-24 00:52:40', 1, 14, 19),
-(113, 'very good', '2024-08-24 12:38:04', 1, 10, 21),
 (115, 'Excellent', '2024-08-24 12:56:04', 1, 10, 23),
 (116, 'nice', '2024-08-24 13:08:34', 1, 10, 21),
 (117, 'Alaw', '2024-08-24 13:12:07', 1, 10, 33),
 (119, '                        nice                    ', '2024-08-24 14:24:57', 1, 10, 33),
-(123, 'superb', '2024-08-25 19:19:03', 1, 11, 21),
 (127, '                                                    Superb                                                ', '2024-08-26 00:40:00', 1, 11, 19),
 (129, 'Superb', '2024-08-26 00:41:57', 1, 11, 19);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company`
+--
+
+CREATE TABLE `company` (
+  `company_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `com_img` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -150,6 +162,7 @@ CREATE TABLE `project_category` (
   `c_name` varchar(255) NOT NULL,
   `c_img` varchar(255) NOT NULL,
   `c_desc` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -157,13 +170,13 @@ CREATE TABLE `project_category` (
 -- Dumping data for table `project_category`
 --
 
-INSERT INTO `project_category` (`c_id`, `c_name`, `c_img`, `c_desc`, `status`) VALUES
-(13, 'Html/CSS/JS ', 'html.css.png', '  HTML (HyperText Markup Language): The standard markup language used to create web pages.\r\nCSS (Cascading Style Sheets): Used for styling HTML elements (layout, colors, fonts, etc.).\r\nJavaScript: A programming language used for creating interactive effec', 1),
-(15, 'PHP/MySQL ', 'php.myslq.jpg', '   PHP: A server-side scripting language for web development.\r\nMySQL: An open-source relational database management system.', 1),
-(16, 'Python/Django ', 'phyton.jpg', '  Python: Often used with frameworks like Django or Flask for back-end development.\r\n\r\nFrameworks:\r\nDjango: A high-level Python web framework.', 1),
-(18, 'C#/ASP.NET ', 'asp.net.jpg', '  C#: A language used in ASP.NET for building dynamic websites and applications.\r\n\r\nFramework\r\nASP.NET: A framework for building web applications and services with .NET and C#.', 1),
-(20, 'Mern', 'mern.jpg', 'MERN is a technology stack used for building full-stack web applications, consisting of MongoDB, Express.js, React.js, and Node.js.\r\n\r\nMongoDB: A NoSQL database for storing data.\r\nExpress.js: A web application framework for the backend.\r\nReact.js: A libra', 1),
-(21, 'Java', 'java.jpg', 'Java is a versatile, high-level, object-oriented programming language designed for platform independence, meaning code written in Java can run on any device that has the Java Virtual Machine (JVM). It is widely used for building enterprise-level applicati', 1);
+INSERT INTO `project_category` (`c_id`, `c_name`, `c_img`, `c_desc`, `user_id`, `status`) VALUES
+(13, 'Html/CSS/JS ', 'html.css.png', '  HTML (HyperText Markup Language): The standard markup language used to create web pages.\r\nCSS (Cascading Style Sheets): Used for styling HTML elements (layout, colors, fonts, etc.).\r\nJavaScript: A programming language used for creating interactive effec', 0, 1),
+(15, 'PHP/MySQL ', 'php.myslq.jpg', '   PHP: A server-side scripting language for web development.\r\nMySQL: An open-source relational database management system.', 0, 1),
+(16, 'Python/Django ', 'phyton.jpg', '  Python: Often used with frameworks like Django or Flask for back-end development.\r\n\r\nFrameworks:\r\nDjango: A high-level Python web framework.', 0, 1),
+(18, 'C#/ASP.NET ', 'asp.net.jpg', '  C#: A language used in ASP.NET for building dynamic websites and applications.\r\n\r\nFramework\r\nASP.NET: A framework for building web applications and services with .NET and C#.', 0, 1),
+(20, 'Mern', 'mern.jpg', 'MERN is a technology stack used for building full-stack web applications, consisting of MongoDB, Express.js, React.js, and Node.js.\r\n\r\nMongoDB: A NoSQL database for storing data.\r\nExpress.js: A web application framework for the backend.\r\nReact.js: A libra', 0, 1),
+(21, 'Java', 'java.jpg', 'Java is a versatile, high-level, object-oriented programming language designed for platform independence, meaning code written in Java can run on any device that has the Java Virtual Machine (JVM). It is widely used for building enterprise-level applicati', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -177,6 +190,7 @@ CREATE TABLE `users` (
   `u_studentid` varchar(255) NOT NULL,
   `u_number` varchar(255) NOT NULL,
   `u_address` varchar(255) NOT NULL,
+  `u_cv` varchar(255) NOT NULL,
   `u_email` varchar(255) NOT NULL,
   `u_password` varchar(255) NOT NULL,
   `u_img` varchar(255) NOT NULL
@@ -186,17 +200,17 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`u_id`, `u_name`, `u_studentid`, `u_number`, `u_address`, `u_email`, `u_password`, `u_img`) VALUES
-(1, 'Mubeen', '', '034567890', 'Baldia Town, Razaqabad, Karachi', 'mubeen@gmail.com', '$2y$10$9p4qqDcB6XWfWo8dMtfmEeuH/l9zIAAv8p9mcOZ8jCLH8uZrQoB6W', ''),
-(3, 'Usama', '', '', '', 'usama@gmail.com', '$2y$10$BilBIHD2iEgMchD0lLGW5up45X.UiMor6y8Pe5TkCETcy06bnel3u', ''),
-(5, 'Ovais Khan', '', '', '', 'ovais@gmail.com', '$2y$10$qu3C5dEqaQSQn30DX3WPYOScKnn3IgVbXLqVN.XMNCWutaJiiob1W', ''),
-(9, 'Yahya', '', '', '', 'yahya@gmail.com', '$2y$10$8IcaLxt7u4suuyNFFtaLg.yxMRkwhJdhnUBvbjlPHDfQQPWwrjI46', 'person_1.jpg'),
-(10, 'yahya4', 'Student 122345', '03456789', 'Liaqtabad', 'yahya4@gmail.com', '$2y$10$t.5btuNzdenmlhoqx.Zbb.TUVgaDNlhfNOtQx4ySW3T.zt0CVDfWa', 'author.jpg'),
-(11, 'Muhammad Zaid', '', '', '', 'zaid@gmail.com', '$2y$10$OFHhZ8V1emfRS6nk1rs9p.L.wMDd1yAICwWW.nRBXCHyZSpnR1Fgq', 'person_4.jpg'),
-(12, 'Zain ', '', '', '', 'zain@gmail.com', '$2y$10$PaJqIhQmNCCKyo3SrSoW8uWmSHycznT2rBJ58oHfGW4IwKtWV4rJW', ''),
-(13, 'Zainab Khan', '', '', '', 'zainab11@gmail.com', '$2y$10$muciNm4lynOjuPlekvFede9r2I/YRW4zPxcWQV7Aj2KMihCS2BzNa', ''),
-(14, 'Maheen', 'Student13346', '0221888568', 'Murtaza ky dill mein', 'maheen@gmail.com', '$2y$10$ElUHxql5tXKzvqulc.mdxOqs9j9TooAU5OM93LzHIOkr6AteL/Htu', 'female.jpeg'),
-(15, 'Abbas Qureshi', '', '', '', 'abbas@gmail.com', '$2y$10$7J7qqe8FaYCaG.SE6KOdU.5OtqerOzNrinfRC7LnM.259Ww1M.nI2', '');
+INSERT INTO `users` (`u_id`, `u_name`, `u_studentid`, `u_number`, `u_address`, `u_cv`, `u_email`, `u_password`, `u_img`) VALUES
+(1, 'Mubeen', '', '034567890', 'Baldia Town, Razaqabad, Karachi', '', 'mubeen@gmail.com', '$2y$10$9p4qqDcB6XWfWo8dMtfmEeuH/l9zIAAv8p9mcOZ8jCLH8uZrQoB6W', ''),
+(3, 'Usama', '', '', '', '', 'usama@gmail.com', '$2y$10$BilBIHD2iEgMchD0lLGW5up45X.UiMor6y8Pe5TkCETcy06bnel3u', ''),
+(5, 'Ovais Khan', '', '', '', '', 'ovais@gmail.com', '$2y$10$qu3C5dEqaQSQn30DX3WPYOScKnn3IgVbXLqVN.XMNCWutaJiiob1W', ''),
+(9, 'Yahya', '', '', '', '', 'yahya@gmail.com', '$2y$10$8IcaLxt7u4suuyNFFtaLg.yxMRkwhJdhnUBvbjlPHDfQQPWwrjI46', 'person_1.jpg'),
+(10, 'yahya4', 'Student 122345', '03456789', 'Liaqtabad', '', 'yahya4@gmail.com', '$2y$10$t.5btuNzdenmlhoqx.Zbb.TUVgaDNlhfNOtQx4ySW3T.zt0CVDfWa', 'author.jpg'),
+(11, 'Muhammad Zaid', '', '', '', '', 'zaid@gmail.com', '$2y$10$OFHhZ8V1emfRS6nk1rs9p.L.wMDd1yAICwWW.nRBXCHyZSpnR1Fgq', 'person_4.jpg'),
+(12, 'Zain ', '', '', '', '', 'zain@gmail.com', '$2y$10$PaJqIhQmNCCKyo3SrSoW8uWmSHycznT2rBJ58oHfGW4IwKtWV4rJW', ''),
+(13, 'Zainab Khan', '', '', '', '', 'zainab11@gmail.com', '$2y$10$muciNm4lynOjuPlekvFede9r2I/YRW4zPxcWQV7Aj2KMihCS2BzNa', ''),
+(14, 'Maheen', 'Student13346', '0221888568', 'Murtaza ky dill mein', '', 'maheen@gmail.com', '$2y$10$ElUHxql5tXKzvqulc.mdxOqs9j9TooAU5OM93LzHIOkr6AteL/Htu', 'female.jpeg'),
+(15, 'Abbas Qureshi', '', '', '', '', 'abbas@gmail.com', '$2y$10$7J7qqe8FaYCaG.SE6KOdU.5OtqerOzNrinfRC7LnM.259Ww1M.nI2', '');
 
 --
 -- Indexes for dumped tables
@@ -215,6 +229,12 @@ ALTER TABLE `comment`
   ADD PRIMARY KEY (`comment_id`),
   ADD KEY `us_fk` (`user_id`),
   ADD KEY `pr_fk` (`projid`);
+
+--
+-- Indexes for table `company`
+--
+ALTER TABLE `company`
+  ADD PRIMARY KEY (`company_id`);
 
 --
 -- Indexes for table `like`
@@ -259,6 +279,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `comment`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+
+--
+-- AUTO_INCREMENT for table `company`
+--
+ALTER TABLE `company`
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `like`
