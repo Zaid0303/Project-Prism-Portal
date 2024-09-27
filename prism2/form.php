@@ -1,6 +1,12 @@
-<title>Login & SignUp | Aptech Prjoect Prism</title>
-  <link rel="shortcut icon" href="assets/images/favicon.ico">
+<?php
+session_start();
+?>
 
+<title>Login & SignUp | Aptech Prjoect Prism</title>
+<link rel="shortcut icon" href="assets/images/favicon.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
     :root {
@@ -350,7 +356,7 @@
     }
 
     /* FORGOT PASSWORD */
-/* .container.forgot .form.forgot,
+    /* .container.forgot .form.forgot,
 .container.forgot .social-list.forgot,
 .container.forgot .social-list.forgot>div {
     transform: scale(1);
@@ -367,13 +373,12 @@
     transform: translateX(250%);
 } */
 
-/* Adjust the transition for the forgot password section */
-/* .container.forgot .text.forgot h2,
+    /* Adjust the transition for the forgot password section */
+    /* .container.forgot .text.forgot h2,
 .container.forgot .text.forgot p,
 .container.forgot .img.forgot img {
     transform: translateX(0);
 } */
-
 </style>
 
 <div id="container" class="container">
@@ -391,14 +396,23 @@
                         <i class='bx bx-mail-send'></i>
                         <input type="email" name="email" placeholder="Email">
                     </div>
+                    <!-- Password Input -->
                     <div class="input-group">
                         <i class='bx bxs-lock-alt'></i>
-                        <input type="password" name="pass" placeholder="Password">
+                        <input type="password" name="pass" id="password" placeholder="Password">
+                        <i class="bx bx-hide toggle-password" id="togglePass"
+                            onclick="togglePasswordVisibility('password', 'togglePass')"></i>
                     </div>
+
+                    <!-- Confirm Password Input -->
                     <div class="input-group">
                         <i class='bx bxs-lock-alt'></i>
-                        <input type="password" name="rp_pass" placeholder="Confirm password">
+                        <input type="password" name="rp_pass" id="confirmPassword" placeholder="Confirm password">
+                        <i class="bx bx-hide toggle-password" id="toggleConfirmPass"
+                            onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPass')"></i>
                     </div>
+
+
                     <input class="btn" type="submit" value="SignUp" name="SignUp">
                     <p>
                         <span>
@@ -419,17 +433,17 @@
                 <form action="insert-login.php" method="POST" class="form sign-in">
                     <div class="input-group">
                         <i class='bx bxs-user'></i>
-                        <input type="text" name="email" placeholder="Email">
+                        <input type="text" name="email" placeholder="Your Name or Email">
                     </div>
                     <div class="input-group">
                         <i class='bx bxs-lock-alt'></i>
                         <input type="password" name="pass" placeholder="Password">
                     </div>
                     <input class="btn" type="submit" value="SignIn" name="SignIn">
-                        
+
                     </input>
                     <p>
-                    <!-- <b onclick="showForgotPassword()" class="pointer">
+                        <!-- <b onclick="showForgotPassword()" class="pointer">
         Forgot password?
     </b> -->
                     </p>
@@ -448,11 +462,11 @@
             </div>
         </div>
         <!-- END SIGN IN -->
-       
+
 
     </div>
-      <!-- FORGOT PASSWORD -->
-<!-- <div class="col align-items-center flex-col forgot">
+    <!-- FORGOT PASSWORD -->
+    <!-- <div class="col align-items-center flex-col forgot">
     <div class="form-wrapper align-items-center">
         <form action="insert-forgot-password.php" method="POST" class="form forgot">
             <div class="input-group">
@@ -471,7 +485,7 @@
         </form>
     </div>
 </div> -->
-<!-- END FORGOT PASSWORD -->
+    <!-- END FORGOT PASSWORD -->
     <!-- END FORM SECTION -->
     <!-- CONTENT SECTION -->
     <div class="row content-row">
@@ -518,7 +532,24 @@
     }, 200)
 
     showForgotPassword = () => {
-    toggle('forgot');
+        toggle('forgot');
+    }
+
+function togglePasswordVisibility(inputId, toggleIconId) {
+    var inputField = document.getElementById(inputId);
+    var toggleIcon = document.getElementById(toggleIconId);
+
+    // Check the current type of the input field
+    if (inputField.type === "password") {
+        inputField.type = "text"; // Show password
+        toggleIcon.classList.remove("bx-hide");
+        toggleIcon.classList.add("bx-show"); // Change icon to 'eye open'
+    } else {
+        inputField.type = "password"; // Hide password
+        toggleIcon.classList.remove("bx-show");
+        toggleIcon.classList.add("bx-hide"); // Change icon to 'eye closed'
+    }
 }
-    
+
+
 </script>

@@ -23,6 +23,7 @@
 
                     <?php
                     if (isset($_SESSION["user_name"])) {
+                        // If a normal user is logged in
                         ?>
                         <div class="dropdown border-button2">
                             <button class="dropbtn d-flex align-items-center">
@@ -36,7 +37,6 @@
                                 ?>
                                 <img src="<?php echo $userImage; ?>" class="avatar2 rounded-circle me-2" height="38"
                                     width="38" style="object-fit: cover;" alt="User Avatar">
-
                                 <span><?php echo $_SESSION["user_name"]; ?></span>
                             </button>
                             <div class="dropdown-content">
@@ -46,7 +46,30 @@
                             </div>
                         </div>
                         <?php
+                    } elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'company') {
+                        // If a company is logged in
+                        ?>
+                        <div class="dropdown border-button2">
+                            <button class="dropbtn d-flex align-items-center">
+                                <?php
+                                if (isset($_SESSION['company_image']) && !empty($_SESSION['company_image'])) {
+                                    $companyImage = './Dashboard/assets/images/admin_img/' . $_SESSION['company_image'];
+                                } else {
+                                    // Set a default avatar if company image is not available
+                                    $companyImage = './Dashboard/assets/images/admin_img/default-avatar.png';
+                                }
+                                ?>
+                                <img src="<?php echo $companyImage; ?>" class="avatar2 rounded-circle me-2" height="38"
+                                    width="38" style="object-fit: cover;" alt="Company Avatar">
+                                <span><?php echo $_SESSION["company_name"]; ?></span>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="logout.php">LogOut</a>
+                            </div>
+                        </div>
+                        <?php
                     } else {
+                        // If no user or company is logged in
                         ?>
                         <div class="border-button">
                             <a href="form.php" class="sign-in-up"><i class="fa fa-user"></i> Sign In/Up</a>
@@ -54,6 +77,7 @@
                         <?php
                     }
                     ?>
+
                     <!-- ***** Menu End ***** -->
                 </nav>
             </div>

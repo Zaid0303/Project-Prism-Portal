@@ -23,7 +23,6 @@ include("config.php");
   <?php
   if (isset($_GET['u-id'])) {
     $u_id = $_GET['u-id'];
-    // $fetch_project = "SELECT p.*, u.u_name, u.u_img, u.u_id FROM `project` p INNER JOIN `users` u ON p.user_id = u.u_id WHERE p.project_id = '$pro_id'";
     $fetch_project = "SELECT * FROM `users` where `u_id` = '$u_id'";
     $fetch_result = mysqli_query($connection, $fetch_project);
     if (mysqli_num_rows($fetch_result) > 0) {

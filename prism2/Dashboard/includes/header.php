@@ -5,9 +5,9 @@ if(!isset($_SESSION)){
 ?>
 <?php 
 // session_start();
-if (!isset($_SESSION['admin_email'])) {
-    header('location: login.php');
-}
+// if (!isset($_SESSION['admin_email'])) {
+//     header('location: login.php');
+// }
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,7 +18,7 @@ if (!isset($_SESSION['admin_email'])) {
 <head>
 
     <meta charset="utf-8" />
-    <title>Prism | Admin & Dashboard</title>
+    <title>Prism | Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />

@@ -148,8 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </section>
 
 <!-- jQuery and Bootstrap JS -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -171,8 +171,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 success: function (response) {
                     if (response.join_url) {
                         $('#response').html(
-                            '<div class="alert alert-success"> Meeting created successfully! <br>' +
-                            'Join URL: <a href="' + response.join_url + '" target="_blank">' + response.join_url + ' </a> </div>'
+                            '<div class="alert alert-success">Meeting created successfully!<br>' +
+                            'Join URL: <a href="' + response.join_url + '" target="_blank">' + response.join_url + '</a></div>'
                         );
                     } else {
                         $('#response').html('<div class="alert alert-danger">Error: ' + (response.message || 'Unknown error occurred') + '</div>');
@@ -186,5 +186,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     });
 </script>
 <?php
-// include('includes/footer.php');
+include('includes/footer.php');
 ?>

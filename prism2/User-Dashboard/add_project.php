@@ -67,7 +67,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <!-- end page title -->
                 <form class="custom-validation" action="add_project.php" method="POST" enctype="multipart/form-data">
-                    <input name="user_id" type="hidden" value="<?php echo $_SESSION['user_id'] ?>">
+                    <input name="user_id" type="hidden" value="<?php echo $_SESSION['userid'] ?>">
 
                     <div class="row">
                         <div class="col-xl-12">

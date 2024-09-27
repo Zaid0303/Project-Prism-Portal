@@ -1,9 +1,4 @@
-<?php
-// session_start();
-// if (!isset($_SESSION['admin_email'])) {
-//     header('location: login.php');
-// }
-?>
+
 <?php
 include('includes/header.php');
 include('includes/navbar.php');
@@ -48,7 +43,7 @@ include('config.php');
                                         <div id="radialchart-1" class="apex-charts" dir="ltr"></div>
                                     </div>
                                     <?php
-                                    $user_id = $_SESSION['user_id'];
+                                    $user_id = $_SESSION['userid'];
                                     // Query to get the user count
                                     $query = "SELECT COUNT(*) AS cat_count FROM project_category";
                                     $result = mysqli_query($connection, $query);
@@ -289,7 +284,7 @@ include('config.php');
                                         <?php
                                         include("config.php");
 
-                                        $logged_in_user_id = $_SESSION['user_id'];
+                                        $logged_in_user_id = $_SESSION['userid'];
 
                                         $query = "SELECT c.comment_id, c.comment_message, c.datetime, u.u_id, u.u_name, u.u_img 
                                         FROM comment c 

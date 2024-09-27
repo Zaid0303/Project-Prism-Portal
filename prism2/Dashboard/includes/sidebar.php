@@ -38,15 +38,24 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fa-solid fa-list"></i>
+                    <i class="fa-solid fa-user-plus"></i>
+                        <span>Company</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="company.php">View Companies</a></li>
+                        <li><a href="add_company.php">Add Company</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="fa-solid fa-list-check"></i>
                         <span>All Approval Request</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="view-project.php">View Projects</a></li>
-                        <li><a href="Rejected_project.php">All Rejected Project</a></li>
-                        <li><a href="selected_project.php">All Selected Project</a></li>
-                        <li><a href="user_edit_project.php">All edit Project</a></li>
-                        <li><a href="project-restore.php">All restore Project</a></li>
+                        <li><a href="user_edit_project.php">All Project Requests</a></li>
+                        <li><a href="Rejected_project.php">Rejected Project</a></li>
+                        <li><a href="selected_project.php">Selected Project</a></li>
                     </ul>
                 </li>
 

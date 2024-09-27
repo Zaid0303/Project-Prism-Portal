@@ -1,9 +1,19 @@
 <?php
-// session_start();
-// if (!isset($_SESSION['admin_email'])) {
-//     header('location: login.php');
-// }
+session_start();
+
+// Check if the user is logged in and is an admin
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
+    header('Location: form.php'); // Redirect non-admin users to the login page
+    exit(); // Stop further execution after redirect
+}
+
+// Check if admin session is valid
+if (empty($_SESSION['adminid'])) {
+    header('location:logout.php'); // Redirect to logout if adminid is not set
+    exit(); // Stop further execution after redirect
+}
 ?>
+
 <?php
 include('includes/header.php');
 include('includes/navbar.php');
@@ -574,7 +584,7 @@ include('config.php');
             </div>
             <!-- end row -->
 
-             <div class="row">
+             <!-- <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
@@ -584,13 +594,13 @@ include('config.php');
                                     <table class="table table-centered table-nowrap mb-0">
                                         <thead>
                                             <tr>
-                                                <!-- <th scope="col" style="width: 50px;">
+                                                <th scope="col" style="width: 50px;">
                                                     <div class="form-check">
                                                         <input type="checkbox" class="form-check-input"
                                                             id="customCheckall">
                                                         <label class="form-check-label" for="customCheckall"></label>
                                                     </div>
-                                                </th> -->
+                                                </th>
                                                 <th scope="col" style="width: 60px;"></th>
                                                 <th scope="col">ID & Name</th>
                                                 <th scope="col">Date</th>
@@ -603,13 +613,13 @@ include('config.php');
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <!-- <td>
+                                                <td>
                                                     <div class="form-check">
                                                         <input type="checkbox" class="form-check-input"
                                                             id="customCheck1">
                                                         <label class="form-check-label" for="customCheck1"></label>
                                                     </div>
-                                                </td> -->
+                                                </td>
                                                 <td>
                                                     <img src="assets/images/users/avatar-2.jpg" alt="user"
                                                         class="avatar-xs rounded-circle" />
@@ -637,13 +647,13 @@ include('config.php');
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <!-- <td>
+                                                <td>
                                                     <div class="form-check">
                                                         <input type="checkbox" class="form-check-input"
                                                             id="customCheck2">
                                                         <label class="form-check-label" for="customCheck2"></label>
                                                     </div>
-                                                </td> -->
+                                                </td>
                                                 <td>
                                                     <div class="avatar-xs">
                                                         <span
@@ -675,13 +685,13 @@ include('config.php');
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <!-- <td>
+                                                <td>
                                                     <div class="form-check">
                                                         <input type="checkbox" class="form-check-input"
                                                             id="customCheck3">
                                                         <label class="form-check-label" for="customCheck3"></label>
                                                     </div>
-                                                </td> -->
+                                                </td>
                                                 <td>
                                                     <img src="assets/images/users/avatar-3.jpg" alt="user"
                                                         class="avatar-xs rounded-circle" />
@@ -709,13 +719,13 @@ include('config.php');
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <!-- <td>
+                                                <td>
                                                     <div class="form-check">
                                                         <input type="checkbox" class="form-check-input"
                                                             id="customCheck4">
                                                         <label class="form-check-label" for="customCheck4"></label>
                                                     </div>
-                                                </td> -->
+                                                </td>
                                                 <td>
                                                     <img src="assets/images/users/avatar-6.jpg" alt="user"
                                                         class="avatar-xs rounded-circle" />
@@ -743,13 +753,13 @@ include('config.php');
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <!-- <td>
+                                                <td>
                                                     <div class="form-check">
                                                         <input type="checkbox" class="form-check-input"
                                                             id="customCheck5">
                                                         <label class="form-check-label" for="customCheck5"></label>
                                                     </div>
-                                                </td> -->
+                                                </td>
                                                 <td>
                                                     <div class="avatar-xs">
                                                         <span
@@ -784,12 +794,12 @@ include('config.php');
                                     </table>
                                 </div>
                             </div>
-                            <!-- end card-body -->
+
                         </div>
-                        <!-- end card -->
+
                     </div>
-                    <!-- end col -->
-                </div>
+
+                </div> -->
 
 
         </div>

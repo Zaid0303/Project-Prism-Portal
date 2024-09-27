@@ -13,64 +13,106 @@ include("config.php");
     <img src="./User-Dashboard/assets/images/bg.jpg" alt="Cover Photo">
   </div>
   <div class="profile-info">
-    <div class="profile-photo">
-      <?php
-      if (isset($_SESSION['user_image']) && !empty($_SESSION['user_image'])) {
-        $userImage = './User-Dashboard/assets/images/user_img/' . $_SESSION['user_image'];
-      } else {
-        // Set a default avatar if user image is not available
-        $userImage = './User-Dashboard/assets/images/user_img/default-avatar.png';
-      }
-      ?>
-      <img id="profile-image" src="<?php echo $userImage; ?>" alt="avatar" class="rounded-circle img-fluid shadow-sm"
-        style="width: 150px;">
-    </div>
-    <div class="profile-details">
-      <h1 class="name">
-        <?php echo $_SESSION['user_name']; ?>
-      </h1>
-      <p class="bio">
-        <?php echo isset($_SESSION['user_studentid']) ? $_SESSION['user_studentid'] : 'Student ID not available'; ?> |
-        <?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'Email not available'; ?> |
-        <?php echo isset($_SESSION['user_number']) ? $_SESSION['user_number'] : 'Number not available'; ?>
-      </p>
-      <div class="main-button d-flex flex-column flex-md-row align-items-center justify-content-md-start gap-2 mt-4">
-        <?php
-        $file_path = './User-Dashboard/assets/images/user_img/' . $_SESSION['user_cv'];
-        if (file_exists($file_path)) {
-          echo '<a href="' . $file_path . '" download class="btn btn-primary btn-sm mb-2 mb-md-0">
-                            <i class="fas fa-download"></i> Download CV</a>';
-        } else {
-          echo '<span class="text-danger mb-2 mb-md-0">File not available.</span>';
-        }
-        ?>
-        <?php
-        // Start the session
-// session_start();
-        
-        // Check if the user is logged in as a company
-        if (isset($_SESSION['role']) && $_SESSION['role'] === 'company') {
+    <?php
+    if (isset($_GET['u-id'])) {
+      $u_id = $_GET['u-id'];
+      $fetch_project = "SELECT * FROM `users` where `u_id` = '$u_id'";
+      $fetch_result = mysqli_query($connection, $fetch_project);
+      if (mysqli_num_rows($fetch_result) > 0) {
+        while ($row = mysqli_fetch_assoc($fetch_result)) {
           ?>
-          <form action="send.php" method="POST">
-            <a href="zoom1.php" class="btn btn-secondary btn-sm" name="send" aria-label="Schedule Interview">
-              <i class="fas fa-calendar-alt"></i> Schedule Interview
-            </a>
-          </form>
+          <div class="profile-photo">
+            <?php
+            if (isset($_SESSION['user_image']) && !empty($_SESSION['user_image'])) {
+              $userImage = './User-Dashboard/assets/images/user_img/' . $_SESSION['user_image'];
+            } else {
+              // Set a default avatar if user image is not available
+              $userImage = './User-Dashboard/assets/images/user_img/default-avatar.png';
+            }
+            ?>
+            <img id="profile-image" src="<?php echo $userImage; ?>" alt="avatar" class="rounded-circle img-fluid shadow-sm"
+              style="width: 150px;">
+          </div>
+          <div class="profile-details">
+            <h1 class="name">
+              <?php echo $row['u_name']; ?>
+            </h1>
+            <p class="bio">
+              <?php echo $row['u_studentid']; ?> |
+              <?php echo $row['u_email']; ?> |
+              <?php echo $row['u_number'] ?>
+            </p>
+            <div class="main-button d-flex flex-column flex-md-row align-items-center justify-content-md-start gap-2 mt-4">
+              <?php
+              $file_path = './User-Dashboard/assets/images/user_img/' . $row['u_cv'];
+              if (file_exists($file_path)) {
+                echo '<a href="' . $file_path . '" download class="btn btn-primary btn-sm mb-2 mb-md-0">
+                            <i class="fas fa-download"></i> Download CV</a>';
+              } else {
+                echo '<span class="text-danger mb-2 mb-md-0">File not available.</span>';
+              }
+              ?>
+
+
+              <?php
+
+              // Check if the user is logged in as a company
+              if (isset($_SESSION['role']) && $_SESSION['role'] === 'company') {
+                ?>
+                <form action="send.php" method="POST">
+                  <a href="zoom1.php" class="btn btn-secondary btn-sm" name="send" aria-label="Schedule Interview">
+                    <i class="fas fa-calendar-alt"></i> Schedule Interview
+                  </a>
+                </form>
+                <?php
+              } // End of the conditional block
+              ?>
+
+            </div>
+
+
+            <style>
+              /* Additional styles if needed for further customizations */
+              .main-button .btn {
+                padding: 8px 16px;
+                font-size: 14px;
+              }
+            </style>
+
+          </div>
           <?php
-        } // End of the conditional block
-        ?>
-
-      </div>
-
-      <style>
-        /* Additional styles if needed for further customizations */
-        .main-button .btn {
-          padding: 8px 16px;
-          font-size: 14px;
         }
-      </style>
+      }
+    }
+    ?>
 
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>You must be logged in to like or comment on this project.</p>
+            <a href="form.php" class="btn btn-primary">Login</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap 5 JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
   </div>
 
 </div>
@@ -200,43 +242,39 @@ include("config.php");
     <div class="row">
       <?php
       // Your SQL query to get only the categories where the user has uploaded projects
-      $user_id = $_SESSION['userid'];
-      $fetch_category = "
-  SELECT pc.c_id, pc.c_name, COUNT(p.project_id) AS project_count
-  FROM project_category pc
-  LEFT JOIN project p ON pc.c_id = p.category
-  WHERE p.user_id = '$user_id'
-  GROUP BY pc.c_id, pc.c_name 
-  HAVING project_count > 0
-  ";
+      if (isset($_GET['u-id'])) {
+        $user_id = $_GET['u-id'];
+        $fetch_category = "
+      SELECT pc.c_id, pc.c_name, COUNT(p.project_id) AS project_count
+      FROM project_category pc
+      LEFT JOIN project p ON pc.c_id = p.category
+      WHERE p.user_id = '$user_id'
+      GROUP BY pc.c_id, pc.c_name 
+      HAVING project_count > 0
+      ";
 
-      // Execute the query
-      $fetch_result = mysqli_query($connection, $fetch_category);
+        // Execute the query
+        $fetch_result = mysqli_query($connection, $fetch_category);
 
-      // Check if there are results
-      if (mysqli_num_rows($fetch_result) > 0) {
-        // Loop through each row in the result
-        while ($row = mysqli_fetch_assoc($fetch_result)) {
-          ?>
-          <div class="col-lg-3 col-md-4 col-sm-6 mb-4 d-flex">
-            <div class="card shadow-sm border-0 animate-card hover-effect w-100">
-              <div class="card-body text-center">
-                <h6 class="card-title"><?php echo htmlspecialchars($row["c_name"]); ?></h6>
-                <p class="card-text">Projects: <?php echo ($row["project_count"]); ?></p>
+        // Check if there are results
+        if (mysqli_num_rows($fetch_result) > 0) {
+          // Loop through each row in the result
+          while ($row = mysqli_fetch_assoc($fetch_result)) {
+            ?>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4 d-flex">
+              <div class="card shadow-sm border-0 animate-card hover-effect w-100">
+                <div class="card-body text-center">
+                  <h6 class="card-title"><?php echo htmlspecialchars($row["c_name"]); ?></h6>
+                  <p class="card-text">Projects: <?php echo ($row["project_count"]); ?></p>
+                </div>
               </div>
             </div>
-          </div>
-          <?php
+            <?php
+          }
         }
-      } else {
-        // If no categories found
-        echo '<div class="col-12 text-center">
-            <p>No Categories Found</p>
-          </div>';
       }
       ?>
     </div>
-
   </div>
 
 </div>
@@ -615,63 +653,57 @@ include("config.php");
           <h4>Your <em></em> Uploads <em>Projects</em></h4>
         </div>
       </div>
-
       <?php
       if (isset($row['u_id'])) {
         $_SESSION['userid'] = $row['u_id'];
       }
       ?>
-
       <?php
-      // Fetch projects query
-      $fetch_project = "SELECT * FROM `project` AS p 
-    INNER JOIN `project_category` AS c 
-    ON p.category = c.c_id 
-    WHERE p.status = 1 
-    AND p.user_id = " . intval($_SESSION['userid']);
-
-      // Execute the query
-      $fetch_result = mysqli_query($connection, $fetch_project);
-
-      // Check if any projects exist
-      if (mysqli_num_rows($fetch_result) > 0) {
-        while ($row = mysqli_fetch_assoc($fetch_result)) {
-          ?>
-          <div class="col-lg-4">
-            <div class="thumb">
-              <img src="<?php echo './User-Dashboard/assets/images/project_img/' . $row["project_img"]; ?>"
-                alt="project img">
-              <div class="hover-effect">
-                <div class="content">
-                  <h4><?php echo $row['project_name']; ?></h4>
-                  <span>Technology : <?php echo $row['c_name']; ?></span>
-                  <span>Faculty : <?php echo $row['project_faculty']; ?></span>
-                  <ul>
-                    <li><a href="view_project.php?p-id=<?php echo $row["project_id"]; ?>"><i class="fa fa-link"></i></a>
-                    </li>
-                  </ul>
+      if (isset($_GET['u-id'])) {
+        $u_id = $_GET['u-id'];
+        $limit = 6; // Number of projects to load per request
+        $offset = isset($_GET['offset']) ? $_GET['offset'] : 0; // Current offset
+        $fetch_project = "
+          SELECT p.*, c.c_name 
+          FROM `project` p 
+          INNER JOIN `users` u ON p.user_id = u.u_id 
+          INNER JOIN `project_category` c ON p.category = c.c_id 
+          WHERE u.u_id = '$u_id'
+          ORDER BY c.c_name, p.project_name
+          LIMIT 6
+        ";
+        $fetch_result = mysqli_query($connection, $fetch_project);
+        if (mysqli_num_rows($fetch_result) > 0) {
+          while ($row = mysqli_fetch_assoc($fetch_result)) {
+            ?>
+            <div class="col-lg-4">
+              <div class="thumb">
+                <img src="<?php echo './User-Dashboard/assets/images/project_img/' . $row["project_img"]; ?>"
+                  alt="project img">
+                <div class="hover-effect">
+                  <div class="content">
+                    <h4><?php echo $row['project_name'] ?></h4>
+                    <span>Technology : <?php echo $row['c_name'] ?></span>
+                    <span>Faculty : <?php echo $row['project_faculty'] ?></span>
+                    <ul>
+                      <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+                      <li><a href="view_project.php?p-id=<?php echo $row["project_id"] ?>"><i class="fa fa-link"></i></a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <?php
+            <?php
+          }
         }
-        ?>
-        <div class="col-lg-12">
-          <div class="main-button">
-            <a href="#">Load More</a>
-          </div>
-        </div>
-        <?php
-      } else {
-        // If no projects are found
-        echo '<div class="col-lg-12 text-center">
-            <p>No Projects Found</p>
-          </div>';
       }
       ?>
+      <div class="col-lg-12">
+        <div class="main-button">
+          <a href="#">Load More </a>
+        </div>
+      </div>
     </div>
-
   </div>
   <!-- CSS for Animations and Hover Effects -->
   <style>

@@ -29,7 +29,7 @@ include("config.php");
 </div>
 <!-- ***** Main Banner Area End ***** -->
 
-<section class="featured-items" id="featured-items">
+<!-- <section class="featured-items" id="featured-items">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -188,7 +188,7 @@ include("config.php");
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 <section class="popular-categories">

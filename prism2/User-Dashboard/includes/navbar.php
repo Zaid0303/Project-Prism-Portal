@@ -1,19 +1,3 @@
-<?php
-// session_start();
-
-// Ensure $row is defined and contains the necessary keys
-if (isset($row['u_name'], $row['u_email'], $row['u_pass'], $row['u_img'])) {
-    $_SESSION['user_name'] = $row['u_name'];
-    $_SESSION['user_email'] = $row['u_email'];
-    $_SESSION['user_pass'] = $row['u_pass'];
-    $_SESSION['user_img'] = $row['u_img'];
-} else {
-    // Handle error or provide default values
-}
-
-
-?>
-
 <!-- ========== Navbar Start ========== -->
 <header id="page-topbar">
     <div class="navbar-header">
@@ -295,8 +279,9 @@ if (isset($row['u_name'], $row['u_email'], $row['u_pass'], $row['u_img'])) {
                                     Lock
                                     screen</a> -->
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger" href="../index.php"><i
-                            class="ri-shut-down-line align-middle me-1 text-danger"></i> Go To Portal</a>
+                    <a class="dropdown-item text-danger" href="../index.php">
+                        <i class="ri-shut-down-line align-middle me-1 text-danger"></i> Go To Portal
+                    </a>
                 </div>
             </div>
 

@@ -35,7 +35,7 @@ include("config.php");
                 <!-- end page title -->
                 <?php
                 if (isset($row['u_id'])) {
-                    $_SESSION['user_id'] = $row['u_id'];
+                    $_SESSION['userid'] = $row['u_id'];
                 }
                 ?>
                 <div class="row">
@@ -77,7 +77,7 @@ include("config.php");
                                         INNER JOIN `project_category` AS c 
                                         ON p.category = c.c_id 
                                         WHERE p.status = 1 
-                                        AND p.user_id = " . intval($_SESSION['user_id']);
+                                        AND p.user_id = " . intval($_SESSION['userid']);
 
                                         $fetch_project_result = mysqli_query($connection, $fetch_project_join);
                                         if (mysqli_num_rows($fetch_project_result) > 0) {

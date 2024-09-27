@@ -52,14 +52,14 @@ include('config.php');
                                                                     style="width: 150px; cursor: pointer;">
                                                             </label>
                                                             <input type="file" id="upload-image" name="u_img"
-                                                                class="d-none" accept="image/*" required>
+                                                                class="d-none" accept="image/*">
                                                         </div>
                                                         <p class="text-muted mb-1 my-2">User</p>
                                                         <h5 class="my-1"><?php echo $_SESSION["user_name"] ?></h5><br>
-                                                        <h6 class="my-1">Email : <b><?php echo $_SESSION["user_email"] ?></b></h6>
-                                                        <h6 class="my-1">Student ID : <b><?php echo $_SESSION["user_studentid"] ?></b></h6>
-                                                        <h6 class="my-1">Phone Number : <b><?php echo $_SESSION["user_number"] ?></b></h6>
-                                                        <h6 class="my-1">Address : <b><?php echo $_SESSION["user_address"] ?></b></h6>
+                                                        <h6 class="my-1">Email : <b><?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'Email not available'; ?></b></h6>
+                                                        <h6 class="my-1">Student ID : <b><?php echo isset($_SESSION['user_studentid']) ? $_SESSION['user_studentid'] : 'Student ID not available'; ?> </b></h6>
+                                                        <h6 class="my-1">Phone Number : <b><?php echo isset($_SESSION['user_number']) ? $_SESSION['user_number'] : 'Number not available'; ?></b></h6>
+                                                        <h6 class="my-1">Address : <b>  <?php echo isset($_SESSION['user_address']) ? $_SESSION['user_address'] : 'Number not available'; ?></b></h6>
                                                         <!-- <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
 
                                                     </div>
@@ -86,7 +86,7 @@ include('config.php');
                                                             </div>
                                                             <div class="col-sm-9">
                                                                 <input type="hidden" class="form-control" name="u_id"
-                                                                    value="<?php echo $_SESSION['user_id'] ?>">
+                                                                    value="<?php echo $_SESSION['userid'] ?>">
                                                                 <input type="text" class="form-control" name="u_name"
                                                                     value="<?php echo $_SESSION['user_name'] ?>" required>
                                                             </div>
@@ -129,7 +129,16 @@ include('config.php');
                                                                 <label for="" class="mb-0">Upload CV</label>
                                                             </div>
                                                             <div class="col-sm-9">
-                                                            <input type="file" accept=".pdf" class="form-control" id="u_cv" name="u_cv" value="<?php echo $_SESSION['u_cv'] ?>" required>
+                                                            <?php
+// Check if the user has an existing CV uploaded
+if (!empty($_SESSION['u_cv'])) {
+    $cv_path = './User-Dashboard/assets/images/user_img/' . $_SESSION['u_cv'];
+    echo '<p>Current CV: <a href="' . $cv_path . '" target="_blank">Download CV</a></p>';
+}
+?>
+<input type="file" accept=".pdf" class="form-control" id="u_cv" name="u_cv" required>
+
+                                                            <!-- <input type="file" accept=".pdf" class="form-control" id="u_cv" name="u_cv" value="<?php echo $_SESSION['u_cv'] ?>" required> -->
                                                             </div>
                                                         </div>
 

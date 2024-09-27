@@ -168,12 +168,22 @@ include("config.php");
                         ?>
                         <!-- Main Video -->
                         <div class="col-lg-8 col-md-7">
-                            <a href="users.php?u-id=<?php echo $row["u_id"] ?>" style="color: #000;">
+                            <a href="user_copy.php?u-id=<?php echo $row["u_id"] ?>" style="color: #000;">
                                 <div class="row align-items-center mb-3">
                                     <div class="col-auto">
-                                        <img src="<?php echo './User-Dashboard/assets/images/user_img/' . $row['u_img']; ?>"
-                                            height="50px" width="50px" alt="User Avatar" class="rounded-circle me-2"
-                                            style="width: 38px; height: 38px; border-radius: 50%;">
+                                        <?php
+                                        // Set the user image path
+                                        $userImage = './User-Dashboard/assets/images/user_img/' . $row['u_img'];
+
+                                        // Check if the image file exists, otherwise use the default avatar
+                                        if (!file_exists($userImage) || empty($row['u_img'])) {
+                                            $userImage = './User-Dashboard/assets/images/user_img/default-avatar.png';
+                                        }
+                                        ?>
+
+                                        <img src="<?php echo $userImage; ?>" height="50px" width="50px" alt="User Avatar"
+                                            class="rounded-circle me-2" style="width: 38px; height: 38px; border-radius: 50%;">
+
                                     </div>
                                     <div class="col">
                                         <strong class="d-block"><?php echo htmlspecialchars($row['u_name']); ?></strong>
@@ -397,7 +407,8 @@ include("config.php");
                                                     $userImage = './User-Dashboard/assets/images/user_img/default-avatar.png';
                                                 }
                                                 ?>
-                                                <img src="<?php echo $userImage; ?>" alt="User Avatar" class="rounded-circle me-3" height="40px" width="40px">
+                                                <img src="<?php echo $userImage; ?>" alt="User Avatar" class="rounded-circle me-3"
+                                                    height="40px" width="40px">
                                                 <div class="w-100">
                                                     <textarea class="form-control" rows="3" name="comment-message" id="comment-message"
                                                         placeholder="Add a comment..." required></textarea>
