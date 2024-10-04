@@ -58,7 +58,7 @@ include("config.php");
 
                                     <tbody>
                                     <?php
-                              $fetch_project_join = "SELECT * from `project` as p inner join `project_category` as c on p.category = c.c_id where p.Sta = 1";
+                              $fetch_project_join = "SELECT * from `project` as p inner join `project_category` as c on p.category = c.c_id where p.Statuss = 1";
                               $fetch_project_result = mysqli_query($connection, $fetch_project_join);
                               if (mysqli_num_rows($fetch_project_result) > 0) {
                                  while ($row = mysqli_fetch_assoc($fetch_project_result)) {
@@ -70,10 +70,10 @@ include("config.php");
                                             <td><?php echo $row['project_semester'] ?></td>
                                             <td><?php echo $row['c_name'] ?></td>
                                                 <td><?php  
-                                                    if ($row['Sta'] == "1") {
+                                                    if ($row['Statuss'] == "1") {
                                                         echo "Accepted";
                                                     } 
-                                                    elseif ($row['Sta'] == "2") {
+                                                    elseif ($row['Statuss'] == "2") {
                                                         echo "Rejected";
                                                     }
                                                 ?></td>

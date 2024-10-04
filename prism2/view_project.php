@@ -230,8 +230,8 @@ include("config.php");
                                         $like_icon_class = 'far fa-heart';
 
                                         // Check if user is logged in
-                                        if (isset($_SESSION['user_id'])) {
-                                            $user_id = $_SESSION['user_id'];
+                                        if (isset($_SESSION['userid'])) {
+                                            $user_id = $_SESSION['userid'];
 
                                             // Query to check if the user has liked the post
                                             $user_liked_query = "SELECT COUNT(*) AS has_liked FROM `like` WHERE project_id = '$pro_id' AND user_id = '$user_id'";
@@ -335,8 +335,8 @@ include("config.php");
                             <!-- /\\\\\\\\\/ Comments section Start /\\\\\\\\\\\\/ -->
 
                             <?php
-                            $is_logged_in = isset($_SESSION['user_id']); // Check if user is logged in
-                            $user_id = $is_logged_in ? $_SESSION['user_id'] : null; // Safely access user_id only if logged in
+                            $is_logged_in = isset($_SESSION['userid']); // Check if user is logged in
+                            $user_id = $is_logged_in ? $_SESSION['userid'] : null; // Safely access user_id only if logged in
                 
                             ?>
 
@@ -397,7 +397,7 @@ include("config.php");
                                     <form method="POST" enctype="multipart/form-data">
                                         <div class="comment-section">
                                             <!-- Comment Input -->
-                                            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                            <input type="hidden" name="user_id" value="<?php echo $_SESSION['userid']; ?>">
                                             <div class="comment-input d-flex align-items-start">
                                                 <?php
                                                 if (isset($_SESSION['user_image']) && !empty($_SESSION['user_image'])) {

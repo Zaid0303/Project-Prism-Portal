@@ -10,7 +10,7 @@ if(isset($_POST['submit']))
 {
     $Status=$_POST['Sta'];
     
-    $query = mysqli_query($connection, "UPDATE project SET Status='$Status' WHERE project_id='$cid'");
+    $query = mysqli_query($connection, "UPDATE project SET Statuss='$Status' WHERE project_id='$cid'");
     
     if ($query) {
         echo '<script>alert("All remarks have been updated")</script>';
@@ -51,7 +51,7 @@ if(isset($_POST['submit']))
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
+                                        <?php
                                             $fetch_project_join = "SELECT * FROM `project` as p INNER JOIN `project_category` as c ON p.category = c.c_id WHERE project_id='$cid'";
                                             $fetch_project_result = mysqli_query($connection, $fetch_project_join);
                                             if (mysqli_num_rows($fetch_project_result) > 0) {
@@ -64,19 +64,18 @@ if(isset($_POST['submit']))
                                                 <td><?php echo $row['project_semester']; ?></td>
                                                 <td><?php echo $row['c_name']; ?></td>
                                                 <td><?php  
-                                                    if ($row['Sta'] == "1") {
+                                                    if ($row['Statuss'] == 1) {
                                                         echo "Accepted";
-                                                    } elseif ($row['Sta'] == "2") {
+                                                    } elseif ($row['Statuss'] == 2) {
                                                         echo "Rejected";
                                                     }
                                                 ?></td>
                                                 <td>
                                                     <select name="Sta" class="form-control wd-450" required="true">
-                                                        <option value="1" <?php if ($row['Statuss'] == "1") echo "selected"; ?>>Selected</option>
-                                                        <option value="2" <?php if ($row['Statuss'] == "2") echo "selected"; ?>>Rejected</option>
+                                                        <option value="1" <?php if ($row['Sta'] === 1) echo "selected"; ?>>Selected</option>
+                                                        <option value="2" <?php if ($row['Sta'] === 2) echo "selected"; ?>>Rejected</option>
                                                     </select>
                                                 </td>
-                                               
                                             </tr>
                                             <?php
                                                 }

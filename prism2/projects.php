@@ -47,7 +47,7 @@ include("config.php");
       }
       ?>
       <?php
-      $fetch_project = "SELECT * FROM project as p inner join project_category as c on p.category = c.c_id where p.Sta = 1";
+      $fetch_project = "SELECT * FROM project as p inner join project_category as c on p.category = c.c_id where p.Statuss = 1";
       $fetch_result = mysqli_query($connection, $fetch_project);
       if (mysqli_num_rows($fetch_result) > 0) {
         while ($row = mysqli_fetch_assoc($fetch_result)) {
