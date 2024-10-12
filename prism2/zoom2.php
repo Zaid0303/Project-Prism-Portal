@@ -1,7 +1,4 @@
 <?php
-include('includes/header.php');
-include('includes/navbar.php');
-include('config.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
@@ -56,11 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Meeting details from the form
     $data = array(
-        'topic' => $_POST['topic'],
+        'topic'      => $_POST['topic'],
         'start_time' => date("Y-m-d\TH:i:s\Z", strtotime($_POST['start_time'])), // UTC time format
-        'duration' => $_POST['duration'],  // in minutes
-        'type' => 2,   // Scheduled meeting
-        'password' => $_POST['password']
+        'duration'   => $_POST['duration'],  // in minutes
+        'type'       => 2,   // Scheduled meeting
+        'password'   => $_POST['password']
     );
 
     $request_url = "https://api.zoom.us/v2/users/sajidasharmeen@aptechnorth.edu.pk/meetings";
@@ -101,59 +98,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    // YAHAN P DATABASE M URL JAYEGA
+// YAHAN P DATABASE M URL JAYEGA
 
 
 
 }
 ?>
 
-<!-- Include Bootstrap for styling -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-
-<section class="pricing-plans">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-heading text-center">
-                    <h6>Zoom Meetings</h6>
-                    <h4>Create a <em>Zoom Meeting</em> are here</h4>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Zoom Meeting</title>
+    <!-- Include Bootstrap for styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Create a Zoom Meeting</h2>
+        <form id="zoomForm">
+            <div class="form-group">
+                <label for="topic">Meeting Topic:</label>
+                <input type="text" class="form-control" id="topic" name="topic" required>
             </div>
-
-
-            <form id="zoomForm">
-                <div class="form-group">
-                    <label for="topic">Meeting Topic:</label>
-                    <input type="text" class="form-control" id="topic" name="topic" required>
-                </div>
-                <div class="form-group">
-                    <label for="start_time">Start Time:</label>
-                    <input type="datetime-local" class="form-control" id="start_time" name="start_time" required>
-                </div>
-                <div class="form-group">
-                    <label for="duration">Duration (minutes):</label>
-                    <input type="number" class="form-control" id="duration" name="duration" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Meeting Password:</label>
-                    <input type="text" class="form-control" id="password" name="password">
-                </div>
-                <button type="submit" class="btn btn-primary">Create Meeting</button>
-            </form>
-            <div id="response" class="mt-4"></div>
-        </div>
+            <div class="form-group">
+                <label for="start_time">Start Time:</label>
+                <input type="datetime-local" class="form-control" id="start_time" name="start_time" required>
+            </div>
+            <div class="form-group">
+                <label for="duration">Duration (minutes):</label>
+                <input type="number" class="form-control" id="duration" name="duration" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Meeting Password:</label>
+                <input type="text" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Create Meeting</button>
+        </form>
+        <div id="response" class="mt-4"></div>
     </div>
-</section>
 
-<!-- jQuery and Bootstrap JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        $('#zoomForm').on('submit', function (e) {
+    <script>
+    $(document).ready(function() {
+        $('#zoomForm').on('submit', function(e) {
             e.preventDefault();
 
             var formData = {
@@ -168,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 type: 'POST',
                 data: formData,
                 dataType: 'json',
-                success: function (response) {
+                success: function(response) {
                     if (response.join_url) {
                         $('#response').html(
                             '<div class="alert alert-success">Meeting created successfully!<br>' +
@@ -178,13 +170,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $('#response').html('<div class="alert alert-danger">Error: ' + (response.message || 'Unknown error occurred') + '</div>');
                     }
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     $('#response').html('<div class="alert alert-danger">Failed to create meeting: ' + errorThrown + '</div>');
                 }
             });
         });
     });
-</script>
-<?php
-include('includes/footer.php');
-?>
+    </script>
+</body>
+</html>
