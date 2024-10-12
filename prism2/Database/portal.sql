@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2024 at 08:51 PM
+-- Generation Time: Oct 12, 2024 at 11:18 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -93,7 +93,8 @@ CREATE TABLE `company` (
 INSERT INTO `company` (`company_id`, `name`, `email`, `password`, `com_img`) VALUES
 (2, 'Digital Tech', 'digital@gmail.com', '$2y$10$qLD7Yp8pFZd333VtOZaIO.68MTL9B5WonPUM4CKVORj6WIl1ijQom', 'digital-abstract-technology-logo-stock-free-vector.jpg'),
 (3, 'TrackTerra', 'trackterra@gmail.com', '$2y$10$RSQ6cxwLLeaBSOL73Wqu7OasjevEA8PGcmEakj.vHkttvwPg4KLF6', 'trackTerra.jpg'),
-(4, 'PixelBits', 'pixels@gmail.com', '$2y$10$TjOuUqLESodZ0opau74CR.xDuDE2hO1JhKTLnTmu0IyDtTL85rC5q', 'pixelbits.png');
+(4, 'PixelBits', 'pixels@gmail.com', '$2y$10$TjOuUqLESodZ0opau74CR.xDuDE2hO1JhKTLnTmu0IyDtTL85rC5q', 'pixelbits.png'),
+(5, 'softech', 'softech@gmail.com', '$2y$10$WWyvjj/cdILm4pGlpgZeQe.pshBpgcCzl2gS94HEFG7p40lEC/ZPi', '');
 
 -- --------------------------------------------------------
 
@@ -133,11 +134,20 @@ INSERT INTO `like` (`like_id`, `user_id`, `project_id`, `count`) VALUES
 --
 
 CREATE TABLE `meetings` (
-  `meeting_id` int(11) NOT NULL,
-  `topic` varchar(255) NOT NULL,
-  `join_url` varchar(255) NOT NULL,
-  `start_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `id` int(11) NOT NULL,
+  `join_url` text NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `meetings`
+--
+
+INSERT INTO `meetings` (`id`, `join_url`, `user_id`) VALUES
+(4, 'https://zoom.us/j/94039013080?pwd=xcia6ZO6bdezK7eofNrqPOyNyTDKE2.1', 0),
+(5, 'https://zoom.us/j/93294859052?pwd=px1CGYq83xcEdhzbazganNVzq9Yj6U.1', 0),
+(6, 'https://zoom.us/j/94913293155?pwd=6VGofemxL8sa0CqzQZsaTVJe30CH5V.1', 0),
+(7, 'https://zoom.us/j/93352161174?pwd=kb1g6pFdebIUVf9kJaSqkNDtrE7Vxr.1', 0);
 
 -- --------------------------------------------------------
 
@@ -275,6 +285,12 @@ ALTER TABLE `like`
   ADD KEY `pro_fk` (`project_id`);
 
 --
+-- Indexes for table `meetings`
+--
+ALTER TABLE `meetings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `project`
 --
 ALTER TABLE `project`
@@ -314,13 +330,19 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `like`
 --
 ALTER TABLE `like`
   MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- AUTO_INCREMENT for table `meetings`
+--
+ALTER TABLE `meetings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `project`

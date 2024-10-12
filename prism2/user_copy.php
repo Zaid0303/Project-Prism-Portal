@@ -60,7 +60,7 @@ include("config.php");
               if (isset($_SESSION['role']) && $_SESSION['role'] === 'company') {
                 ?>
                 <form action="send.php" method="POST">
-                  <a href="zoom1.php" class="btn btn-secondary btn-sm" name="send" aria-label="Schedule Interview">
+                  <a href="zoom2.php" class="btn btn-secondary btn-sm" name="send" aria-label="Schedule Interview">
                     <i class="fas fa-calendar-alt"></i> Schedule Interview
                   </a>
                 </form>

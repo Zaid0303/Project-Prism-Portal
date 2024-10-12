@@ -4,22 +4,27 @@ include('includes/navbar.php');
 include('config.php');
 ?>
 <?php
-// Get meeting ID or some unique identifier from the URL (e.g., meeting ID passed as a query parameter)
-// Assuming meeting_id is passed in the URL
-// $meeting_id = $_GET['meeting_id'];
 
-// $fetch_meeting_query = "SELECT join_url FROM meetings WHERE meeting_id = '$meeting_id'";
-// $meeting_result = mysqli_query($connection, $fetch_meeting_query);
+if(isset($_POST['meeting'])){
+  $url = $_POST['meeting_url'];
+  
+  $user_insert = "INSERT INTO `meetings` (`join_url`) VALUES ('$url')";
+$user_result = mysqli_query($connection, $user_insert);
+if($user_result){
+  echo "<script> 
+  alert('successful');
+ 
+  </script>";
+}else{
+  echo "<script> 
+  alert('failed');
 
-// if ($meeting_result && mysqli_num_rows($meeting_result) > 0) {
-//     $meeting_data = mysqli_fetch_assoc($meeting_result);
-//     $join_url = $meeting_data['join_url'];
+  </script>";
+}
 
-//     header("Location: $join_url");
-//     exit;
-// } else {
-//     echo "Meeting not found or invalid meeting ID.";
-// }
+
+
+}
 ?>
 
 
@@ -33,6 +38,22 @@ include('config.php');
           <h4>Welcome to <em>Our Meeting</em>..!</h4>
         </div>
       </div>
+      <?php 
+// Your existing query to fetch meetings
+$fetch = 'SELECT * FROM meetings';
+$res = mysqli_query($connection, $fetch);
+
+if ($res) {
+    if (mysqli_num_rows($res) > 0) {
+        // Loop through the result set
+        while ($row = mysqli_fetch_assoc($res)) {
+            // Check if the join_url equals the provided $url
+            if ($row['join_url'] == $url) {
+                // If they match, echo the join_url
+               
+     
+?>
+
 
       <!-- Meeting Section -->
       <section class="meeting-container">
@@ -40,14 +61,23 @@ include('config.php');
           <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8 text-center">
               <div class="meeting-frame shadow-lg">
-                <iframe id="meetingIframe" class="w-100 h-100" src="https://zoom.us" title="Meeting"
+                <iframe id="meetingIframe" class="w-100 h-100" src="<?php echo $row['join_url']; ?>" title="Meeting"
                   allowfullscreen></iframe>
               </div>
             </div>
           </div>
         </div>
       </section>
-
+<?php 
+       }
+      }
+  } else {
+      echo 'No meetings found.';
+  }
+} else {
+  echo 'Error in query execution: ' . mysqli_error($connection);
+}
+?>
     </div>
   </div>
 </section>

@@ -4,8 +4,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-
-
     // Client credentials
     $client_id = 'gkIRqtw6TXKRYF3rnNZL0A';
     $client_secret = 'yCN3goV7VdE8Gpo6CU2r5Go8x354SL4O';
@@ -34,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $err = curl_error($ch);
 
     if ($err) {
+        // Return JSON error response
+        header('Content-Type: application/json');
         echo json_encode(array('error' => "cURL Error #:" . $err));
         exit;
     }
@@ -44,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($token_data['access_token'])) {
         $access_token = $token_data['access_token'];
     } else {
+        // Return JSON error response
+        header('Content-Type: application/json');
         echo json_encode(array('error' => 'Failed to retrieve access token.'));
         exit;
     }
@@ -87,21 +89,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     curl_close($ch);
 
     if ($err) {
+        // Return JSON error response
+        header('Content-Type: application/json');
         echo json_encode(array('error' => "cURL Error #:" . $err));
     } else {
+        // Decode the response
         $response_data = json_decode($response, true);
-        echo json_encode($response_data);
+        
+        // Log the raw response for debugging
+        // Uncomment the line below to log response to the error log
+        // error_log(print_r($response_data, true));
+
+        // Check if join_url exists
+        if (isset($response_data['join_url'])) {
+            $meeting_url = $response_data['join_url']; // Store the meeting URL
+            
+            // Return success JSON response
+            header('Content-Type: application/json');
+            echo json_encode(array(
+                'success' => 'Meeting created successfully!',
+                'join_url' => $meeting_url
+            ));
+            exit;
+
+        } else {
+            // Return JSON error response with Zoom API error message
+            header('Content-Type: application/json');
+            echo json_encode(array('error' => 'Failed to create meeting. Zoom API response: ' . json_encode($response_data)));
+        }
     }
 
     exit;
-
-
-
-
-// YAHAN P DATABASE M URL JAYEGA
-
-
-
 }
 ?>
 
@@ -137,6 +155,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn btn-primary">Create Meeting</button>
         </form>
         <div id="response" class="mt-4"></div>
+
+        <form id="meetingUrlForm" action="zoom_meeting.php" method="POST" class="mt-4" style="display:none;">
+            <input type="hidden" name="meeting_url" type="text" id="meeting_url" value="" readonly>
+            <input type="submit" name="meeting" class="btn btn-secondary" value="Proceed with Meeting">
+        </form>
     </div>
 
     <!-- jQuery and Bootstrap JS -->
@@ -161,13 +184,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 data: formData,
                 dataType: 'json',
                 success: function(response) {
+                    console.log(response); // Log the raw response to the console
                     if (response.join_url) {
                         $('#response').html(
                             '<div class="alert alert-success">Meeting created successfully!<br>' +
                             'Join URL: <a href="' + response.join_url + '" target="_blank">' + response.join_url + '</a></div>'
                         );
+
+                        // Set the meeting URL in the hidden form and display it
+                        $('#meeting_url').val(response.join_url);
+                        $('#meetingUrlForm').show();
                     } else {
-                        $('#response').html('<div class="alert alert-danger">Error: ' + (response.message || 'Unknown error occurred') + '</div>');
+                        $('#response').html('<div class="alert alert-danger">Error: ' + (response.error || 'Unknown error occurred') + '</div>');
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
