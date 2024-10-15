@@ -40,6 +40,8 @@ if (isset($_POST['SignIn'])) {
     } elseif ($retCompany && password_verify($password, $retCompany['password'])) {
         $_SESSION['companyid'] = $retCompany['company_id'];
         $_SESSION["company_name"] = $retCompany['name'];
+        $_SESSION["company_email"] = $retCompany['email'];
+        $_SESSION["company_pass"] = $retCompany['password'];
         $_SESSION["company_image"] = $retCompany['com_img'];
         $_SESSION['role'] = 'company'; // Set role to company
         header('location: index.php'); // Redirect to company dashboard

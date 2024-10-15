@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2024 at 11:18 AM
+-- Generation Time: Oct 15, 2024 at 10:18 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -69,8 +69,7 @@ INSERT INTO `comment` (`comment_id`, `comment_message`, `datetime`, `status`, `u
 (116, 'nice', '2024-08-24 13:08:34', 1, 10, 21),
 (117, 'Alaw', '2024-08-24 13:12:07', 1, 10, 33),
 (119, '                        nice                    ', '2024-08-24 14:24:57', 1, 10, 33),
-(127, '                                                    Superb                                                ', '2024-08-26 00:40:00', 1, 11, 19),
-(129, 'Superb', '2024-08-26 00:41:57', 1, 11, 19);
+(138, 'zabardast\r\n', '2024-10-15 13:04:58', 1, 11, 19);
 
 -- --------------------------------------------------------
 
@@ -91,7 +90,7 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`company_id`, `name`, `email`, `password`, `com_img`) VALUES
-(2, 'Digital Tech', 'digital@gmail.com', '$2y$10$qLD7Yp8pFZd333VtOZaIO.68MTL9B5WonPUM4CKVORj6WIl1ijQom', 'digital-abstract-technology-logo-stock-free-vector.jpg'),
+(2, 'DigitalTech', 'digital@gmail.com', '$2y$10$qLD7Yp8pFZd333VtOZaIO.68MTL9B5WonPUM4CKVORj6WIl1ijQom', 'digital-abstract-technology-logo-stock-free-vector.jpg'),
 (3, 'TrackTerra', 'trackterra@gmail.com', '$2y$10$RSQ6cxwLLeaBSOL73Wqu7OasjevEA8PGcmEakj.vHkttvwPg4KLF6', 'trackTerra.jpg'),
 (4, 'PixelBits', 'pixels@gmail.com', '$2y$10$TjOuUqLESodZ0opau74CR.xDuDE2hO1JhKTLnTmu0IyDtTL85rC5q', 'pixelbits.png'),
 (5, 'softech', 'softech@gmail.com', '$2y$10$WWyvjj/cdILm4pGlpgZeQe.pshBpgcCzl2gS94HEFG7p40lEC/ZPi', '');
@@ -136,18 +135,47 @@ INSERT INTO `like` (`like_id`, `user_id`, `project_id`, `count`) VALUES
 CREATE TABLE `meetings` (
   `id` int(11) NOT NULL,
   `join_url` text NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `topic` varchar(255) NOT NULL,
+  `time` time NOT NULL DEFAULT current_timestamp(),
+  `duration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `meetings`
 --
 
-INSERT INTO `meetings` (`id`, `join_url`, `user_id`) VALUES
-(4, 'https://zoom.us/j/94039013080?pwd=xcia6ZO6bdezK7eofNrqPOyNyTDKE2.1', 0),
-(5, 'https://zoom.us/j/93294859052?pwd=px1CGYq83xcEdhzbazganNVzq9Yj6U.1', 0),
-(6, 'https://zoom.us/j/94913293155?pwd=6VGofemxL8sa0CqzQZsaTVJe30CH5V.1', 0),
-(7, 'https://zoom.us/j/93352161174?pwd=kb1g6pFdebIUVf9kJaSqkNDtrE7Vxr.1', 0);
+INSERT INTO `meetings` (`id`, `join_url`, `user_id`, `topic`, `time`, `duration`) VALUES
+(4, 'https://zoom.us/j/94039013080?pwd=xcia6ZO6bdezK7eofNrqPOyNyTDKE2.1', 0, '', '10:34:34', 0),
+(5, 'https://zoom.us/j/93294859052?pwd=px1CGYq83xcEdhzbazganNVzq9Yj6U.1', 0, '', '10:34:34', 0),
+(6, 'https://zoom.us/j/94913293155?pwd=6VGofemxL8sa0CqzQZsaTVJe30CH5V.1', 0, '', '10:34:34', 0),
+(7, 'https://zoom.us/j/93352161174?pwd=kb1g6pFdebIUVf9kJaSqkNDtrE7Vxr.1', 0, '', '10:34:34', 0),
+(8, 'https://zoom.us/j/97836801798?pwd=2bEDX80GZdQ3a2AnzgU7QbNKaijpu6.1', 0, '', '10:34:34', 0),
+(9, 'https://zoom.us/j/99621879152?pwd=u5ZSEME9kkbr1P02HOsAESrjgWbSSZ.1', 0, '', '10:34:34', 0),
+(10, 'https://zoom.us/j/95027933630?pwd=FHD24HweAYZDpIuaRXpbEbSg9CtjWs.1', 0, '', '10:34:34', 0),
+(11, 'https://zoom.us/j/92492024640?pwd=1GjL8vgU49rqxwSNgopikR8obuFaLL.1', 0, '', '10:34:34', 0),
+(12, 'https://zoom.us/j/96458633218?pwd=Tg2oDyVXQrjXMpis0A7dTrCwEKaeE0.1', 0, '', '10:43:32', 0),
+(13, 'https://zoom.us/j/94539618786?pwd=S7P5SUwimvJjOiPbWXJRygouC6NiiJ.1', 0, '', '10:46:13', 0),
+(14, 'https://zoom.us/j/92881302457?pwd=wjvifYDvewztb42V7dL98meedka3Jp.1', 0, '', '10:50:39', 0),
+(15, 'https://zoom.us/j/92252588288?pwd=k0zfkIitu4vIos94hlwOg8u8Uz2Cni.1', 0, '', '10:54:55', 0),
+(16, 'https://zoom.us/j/97371973109?pwd=2wGAeEdJvgm3eLYMKM8h2pOzoAMNED.1', 0, '', '11:03:28', 0),
+(17, 'https://zoom.us/j/96158937584?pwd=wrZNFlZ3JxbbI2bBTQJEtqspBCha4O.1', 0, '', '11:09:29', 0),
+(18, '', 0, 'PHP', '11:18:37', 2),
+(19, 'https://zoom.us/j/95982990322?pwd=Ck2Ej29MZYL5nEBk9H4dHEnN1YCLCl.1', 0, '', '12:15:03', 0),
+(20, 'https://zoom.us/j/94748829876?pwd=6IF3bxVZQENJjU1Ea5t5dTonb7cU9Z.1', 0, '', '12:16:23', 0),
+(21, 'https://zoom.us/j/96810028470?pwd=yBbTroD29jQbtqmOyW7k8mCJlHHGIO.1', 0, '', '12:17:56', 0),
+(22, 'https://zoom.us/j/98215299082?pwd=scdmxUqAbf5z9mA2okY2p6RtKVAvkL.1', 0, '', '12:19:36', 0),
+(23, 'https://zoom.us/j/93157384518?pwd=Z9fNFJMdejcaYze7uCp6ZiNDpU57Ua.1', 0, '', '12:27:53', 0),
+(24, 'https://zoom.us/j/97835210980?pwd=wxaCQCLxYB9OKYSSgsXFbpvObtjRTS.1', 0, '', '12:34:32', 0),
+(25, 'https://zoom.us/j/98924424466?pwd=bG0IH2qW9cf7FSnEf2XRtAK602aZab.1', 0, '', '12:35:52', 0),
+(26, 'https://zoom.us/j/94167194287?pwd=qcjUa6pK4TYgu5nKyWN4Tq8xFlQgWG.1', 0, '', '12:40:02', 0),
+(27, 'https://zoom.us/j/93306373196?pwd=gxpRQxdzdvt2ZnZxSMoNZeAWPY1jbH.1', 0, '', '12:42:27', 0),
+(28, 'https://zoom.us/j/97833727659?pwd=YsmQEnc7qruyHHLpNH6KgvgewSrVNK.1', 0, '', '12:46:36', 0),
+(29, 'https://zoom.us/j/91484223386?pwd=4Mht1C8YZhvrhrxWSoAMiUfVUPQhny.1', 0, '', '12:49:54', 0),
+(30, 'https://zoom.us/j/91484223386?pwd=4Mht1C8YZhvrhrxWSoAMiUfVUPQhny.1', 0, '', '12:50:15', 0),
+(31, 'https://zoom.us/j/92424076893?pwd=6Gqd3lY2pguZzW5XV0YzRBQ2NqAT7b.1', 0, '', '12:50:31', 0),
+(32, 'https://zoom.us/j/98718601773?pwd=aKFdfBhukFasqs5DaQDJbSylwn3h4f.1', 0, '', '12:53:23', 0),
+(33, 'https://zoom.us/j/98692513841?pwd=TakBmcn41B7M14qXtnwV6BoOK6rl2O.1', 0, '', '13:00:12', 0);
 
 -- --------------------------------------------------------
 
@@ -189,7 +217,9 @@ INSERT INTO `project` (`project_id`, `project_name`, `project_faculty`, `project
 (35, 'Elegance', 'Sir Sameer', '6626G26', '2nd', 'https://preview.colorlib.com/theme/ashion/', 'Glint.jpg', 'testing', 2, 11, 15, '', 0),
 (37, 'Glint Portfolio ', 'Sir Sameer', '3313D4', '1st', 'https://quomodosoft.com/html/glint/?storefront=envato-elements', 'Glint.jpg', 'Glint - Personal Portfolio is a contemporary, clean, and creatively designed personal portfolio template tailored for individuals looking to showcase their work and achievements. It is perfect for creative professionals seeking to build an online portfolio and present their creative endeavors in an impressive manner.', 1, 11, 13, '', 2),
 (38, 'Glint Portfolio2', 'Sir Usama', 'B1C2E4', '1st', 'https://quomodosoft.com/html/glint/?storefront=envato-elements', 'Glint.jpg', 'Glint - Personal Portfolio is a contemporary, clean, and creatively designed personal portfolio template tailored for individuals looking to showcase their work and achievements. It is perfect for creative professionals seeking to build an online portfolio and present their creative endeavors in an impressive manner.', 1, 11, 13, '', 1),
-(39, 'Append - Modern for Startups and IT Services', 'Mis Neha', '2341D2', '3rd', 'https://bootstrapmade.com/demo/Append/', 'Append-Modern.jpg', 'Introducing Append - A Modern Business Bootstrap Template for Startups, Apps, and IT Services.\r\n\r\nAppend is a cutting-edge website template meticulously crafted to cater to the needs of startups, apps, and IT service providers. With its sleek and contemporary design, this template offers a perfect blend of functionality and aesthetics, empowering your online presence and captivating your audience.', 1, 11, 18, '', 1);
+(39, 'Append - Modern for Startups and IT Services', 'Mis Neha', '2341D2', '3rd', 'https://bootstrapmade.com/demo/Append/', 'Append-Modern.jpg', 'Introducing Append - A Modern Business Bootstrap Template for Startups, Apps, and IT Services.\r\n\r\nAppend is a cutting-edge website template meticulously crafted to cater to the needs of startups, apps, and IT service providers. With its sleek and contemporary design, this template offers a perfect blend of functionality and aesthetics, empowering your online presence and captivating your audience.', 1, 11, 18, '', 1),
+(40, 'DJoz Music', 'Sir Usama', 'B1C2E4', '1st', 'https://preview.colorlib.com/theme/djoz/', 'djoz.jpg', 'If you want to expand your music project, do it with the HTML DJ website template, DJoz. This site’s skin mixes minimalism with creativity very well. In other words, everyone who lands on your page will have a blast skimming through your compelling content. While DJoz primarily focuses on DJs, you can easily alter it and use it for other types of musicians, heck, even bands.\r\n\r\nAwesome banner above the fold, video support, music player, countdown timer, transparent header—you name it, DJoz rocks it. Other treats contain social media icons, call-to-actions, a drop-down menu, Google Maps, and a working contact form. What’s more, the code is organized and clean, allowing you to perform customization tweaks effortlessly. Save time and energy when establishing a solid online presence by choosing the jaw-dropping DJoz.', 1, 16, 13, '', 1),
+(41, 'Oakberry', 'Miss Neha', 'B1C2E4', '3rd', 'https://preview.colorlib.com/theme/oakberry/', 'oakberry-free-template.jpg.avif', 'Oakberry is the most modern and easy-to-use Bootstrap 5 real estate website template. If you are looking for a striking example that will help execute your business website with style, opt for Oakberry. The tool follows all the latest trends and includes many practical features, making it a stand-out alternative.\r\n\r\nSome of the stuff you get with Oakberry is a top bar with extra information, a massive slider, hover effects, testimonials, and a gallery. You can also expand Oakberry with a blog section and introduce a strategic and compelling content marketing plan. In conclusion, instead of working on the design and all the handy amenities yourself, grab Oakberry and sort out your real estate website.', 1, 17, 15, '', 1);
 
 -- --------------------------------------------------------
 
@@ -250,7 +280,9 @@ INSERT INTO `users` (`u_id`, `u_name`, `u_studentid`, `u_number`, `u_address`, `
 (12, 'Zain ', '', '', '', '', 'zain@gmail.com', '$2y$10$PaJqIhQmNCCKyo3SrSoW8uWmSHycznT2rBJ58oHfGW4IwKtWV4rJW', ''),
 (13, 'Zainab Khan', '', '', '', '', 'zainab11@gmail.com', '$2y$10$muciNm4lynOjuPlekvFede9r2I/YRW4zPxcWQV7Aj2KMihCS2BzNa', ''),
 (14, 'Maheen', 'Student13346', '0221888568', 'Murtaza ky dill mein', '', 'maheen@gmail.com', '$2y$10$ElUHxql5tXKzvqulc.mdxOqs9j9TooAU5OM93LzHIOkr6AteL/Htu', 'female.jpeg'),
-(15, 'Abbas Qureshi', '', '', '', '', 'abbas@gmail.com', '$2y$10$7J7qqe8FaYCaG.SE6KOdU.5OtqerOzNrinfRC7LnM.259Ww1M.nI2', '');
+(15, 'Abbas Qureshi', '', '', '', '', 'abbas@gmail.com', '$2y$10$7J7qqe8FaYCaG.SE6KOdU.5OtqerOzNrinfRC7LnM.259Ww1M.nI2', ''),
+(16, 'Zaid Ahmed', 'Student1446625', '0321456789', 'Nazimabad no 2', 'Professional CV Resume.pdf', 'zaid123picvid@gmail.com', '$2y$10$4VRk/nejgCuU6sW2rTEZx.Z3MieflqsUkVLlko5.DIC2UpEk6anku', ''),
+(17, 'Zaid ', '', '', '', '', 'zaid123aptech@gmail.com', '$2y$10$5vvm2TCP66K0MkoREXXm9uTh2GNa2ZYEqQZa5hROPeDMviTxBPQvm', '');
 
 --
 -- Indexes for dumped tables
@@ -324,7 +356,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
 -- AUTO_INCREMENT for table `company`
@@ -342,13 +374,13 @@ ALTER TABLE `like`
 -- AUTO_INCREMENT for table `meetings`
 --
 ALTER TABLE `meetings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `project_category`
@@ -360,7 +392,7 @@ ALTER TABLE `project_category`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables

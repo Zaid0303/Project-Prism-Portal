@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('includes/header.php');
 include('includes/navbar.php');
 include('config.php');
@@ -7,6 +8,8 @@ include('config.php');
 
 if(isset($_POST['meeting'])){
   $url = $_POST['meeting_url'];
+
+
   
   $user_insert = "INSERT INTO `meetings` (`join_url`) VALUES ('$url')";
 $user_result = mysqli_query($connection, $user_insert);
@@ -77,6 +80,71 @@ if ($res) {
 } else {
   echo 'Error in query execution: ' . mysqli_error($connection);
 }
+
+use PHPMailer\PHPMailer\PHPMailer;
+
+use PHPMailer\PHPMailer\Exception;
+
+require 'phpmailer/src/Exception.php';
+
+require 'phpmailer/src/PHPMailer.php';
+
+require 'phpmailer/src/SMTP.php';
+
+
+if(isset($_POST['meeting']))
+{
+    $mail = new PHPMailer(true);
+
+    $mail->isSMTP();
+    $mail->CharSet = "utf-8";
+    $mail->SMTPAuth = true;// Enable SMTP authentication
+    $mail->SMTPSecure = 'tls';// Enable TLS encryption, `ssl` also accepted
+    
+    $mail->Host = 'smtp.gmail.com';// Specify main and backup SMTP servers
+    $mail->Port = 587;
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
+    $mail->isHTML(true);// Set email format to HTML
+    
+    $mail->Username = 'zaid123aptech@gmail.com';// SMTP username
+    $mail->Password = 'oksj fnpd febu kvts';// SMTP password
+    
+    $mail->setFrom('zaid123aptech@gmail.com', 'Muhammad Zaid');
+$mail->Subject = 'Schedule Interview';
+
+// Set the email body with the dynamic URL and company name from session
+$mail->Body = "<h4>Interview Join URL: $url</h4>
+               <p>Dear Zaid,</p>
+               <p>I hope this email finds you well. We are pleased to inform you that your interview for the position at " . $_SESSION['company_name'] . " has been scheduled.</p>";
+
+// Add the recipient's email
+$mail->addAddress('mz4513582@gmail.com', 'bete'); // Replace with session-based user email if needed
+
+
+
+    
+    $mail->send();
+
+
+
+
+    // echo "<script> 
+    // alert('done');
+    // window.location.href = 'thanks.php';
+    //  </script>";
+
+
+
+
+}
+
+
 ?>
     </div>
   </div>
@@ -141,6 +209,7 @@ if ($res) {
     }
   }
 </style>
+
 
 
 <?php

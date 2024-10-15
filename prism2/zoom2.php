@@ -54,13 +54,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     curl_close($ch);
 
     // Meeting details from the form
-    $data = array(
-        'topic'      => $_POST['topic'],
-        'start_time' => date("Y-m-d\TH:i:s\Z", strtotime($_POST['start_time'])), // UTC time format
-        'duration'   => $_POST['duration'],  // in minutes
-        'type'       => 2,   // Scheduled meeting
-        'password'   => $_POST['password']
-    );
+   // Set the default timezone to Pakistan
+date_default_timezone_set('Asia/Karachi');
+
+// Get the start time from the form and create a DateTime object
+$start_time = new DateTime($_POST['start_time'], new DateTimeZone('Asia/Karachi'));
+
+// Add 2 minutes to the start time
+$start_time->modify('+2 minutes');
+
+// Convert the start time to UTC
+$start_time_utc = $start_time->setTimezone(new DateTimeZone('UTC'))->format("Y-m-d\TH:i:s\Z");
+
+// Prepare your data array
+$data = array(
+    'topic'      => $_POST['topic'],
+    'start_time' => $start_time_utc, // UTC time format
+    'duration'   => $_POST['duration'],  // in minutes
+    'type'       => 2,   // Scheduled meeting
+    'password'   => $_POST['password']
+);
 
     $request_url = "https://api.zoom.us/v2/users/sajidasharmeen@aptechnorth.edu.pk/meetings";
 
@@ -135,15 +148,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container mt-5">
         <h2>Create a Zoom Meeting</h2>
-        <form id="zoomForm">
+        <form id="zoomForm" method="POST" action="insert-zoom.php">
             <div class="form-group">
                 <label for="topic">Meeting Topic:</label>
+                <input type="hidden" class="form-control" id="topic" name="id" required>
                 <input type="text" class="form-control" id="topic" name="topic" required>
             </div>
             <div class="form-group">
-                <label for="start_time">Start Time:</label>
-                <input type="datetime-local" class="form-control" id="start_time" name="start_time" required>
-            </div>
+    <label for="start_time">Start Time:</label>
+    <input type="datetime-local" class="form-control" id="start_time" name="start_time" required>
+</div>
+
+<script>
+// Function to set current date and time
+window.onload = function() {
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = (now.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
+    var day = now.getDate().toString().padStart(2, '0');
+    var hours = now.getHours().toString().padStart(2, '0');
+    var minutes = now.getMinutes().toString().padStart(2, '0');
+    
+    var currentTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+    
+    // Set the value of the datetime-local input to the current date and time
+    document.getElementById('start_time').value = currentTime;
+};
+</script>
+
             <div class="form-group">
                 <label for="duration">Duration (minutes):</label>
                 <input type="number" class="form-control" id="duration" name="duration" required>
@@ -152,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="password">Meeting Password:</label>
                 <input type="text" class="form-control" id="password" name="password">
             </div>
-            <button type="submit" class="btn btn-primary">Create Meeting</button>
+            <input type="submit" name="meeting" class="btn btn-primary" value="Create Meeting">
         </form>
         <div id="response" class="mt-4"></div>
 
@@ -187,8 +219,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     console.log(response); // Log the raw response to the console
                     if (response.join_url) {
                         $('#response').html(
-                            '<div class="alert alert-success">Meeting created successfully!<br>' +
-                            'Join URL: <a href="' + response.join_url + '" target="_blank">' + response.join_url + '</a></div>'
+                            // '<div class="alert alert-success">Meeting created successfully!<br>' +
+                            // 'Join URL: <a href="' + response.join_url + '" target="_blank">' + response.join_url + '</a></div>'
                         );
 
                         // Set the meeting URL in the hidden form and display it

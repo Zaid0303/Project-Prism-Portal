@@ -46,7 +46,7 @@ include('config.php');
                                         <?php
                                         // Updated query to join comment and project tables
 // Assuming user ID is stored in a session variable
-                                        $user_id = $_SESSION['user_id'];
+                                        $user_id = $_SESSION['userid'];
 
                                         $fetch_user_join = "SELECT 
                         c.comment_id, 

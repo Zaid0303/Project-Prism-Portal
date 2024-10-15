@@ -338,6 +338,10 @@ include("config.php");
                             $is_logged_in = isset($_SESSION['userid']); // Check if user is logged in
                             $user_id = $is_logged_in ? $_SESSION['userid'] : null; // Safely access user_id only if logged in
                 
+                            $is_company_logged_in = isset($_SESSION['companyid']);
+                            $company_id = $is_company_logged_in ? $_SESSION['companyid'] : null;
+
+
                             ?>
 
                             <!-- Display All Comments Section -->
@@ -453,11 +457,11 @@ include("config.php");
                                                         <i class="fa-solid fa-pencil"></i>
                                                     </button>
                                                     <!-- Delete Icon -->
-                                                    <a href="delete_comment.php?c-id=<?php echo $row["comment_id"] ?>"><button
-                                                            class="btn btn-outline-danger delete-comment"
-                                                            data-id="<?php echo $row['comment_id']; ?>" title="Delete">
-                                                            <i class="fa-solid fa-trash"></i>
-                                                        </button></a>
+                                                    <a href="delete_comment.php?comment_id=<?php echo $row['comment_id']?>">                     
+    <button class="btn btn-outline-danger">
+        <i class="fa-solid fa-trash"></i>
+    </button>
+    </a>
                                                 </div>
                                             <?php endif; ?>
                                         </div>
